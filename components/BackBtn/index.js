@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import styled from "styled-components";
 
 const Button = styled.div`
@@ -15,14 +15,8 @@ const ButtonText = styled.p`
 `;
 
 const BackBtn = () => {
-  const router = useRouter();
-  const backButtonHandler = () => {
-    const paths = router.asPath.split("/");
-    paths.splice(paths.length - 1);
-    router.push(paths.join("/"));
-  };
   return (
-    <Button onClick={backButtonHandler}>
+    <Button onClick={() => Router.back()}>
       <ButtonText>❮ Back</ButtonText>
     </Button>
   );
