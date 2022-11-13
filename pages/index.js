@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -43,6 +42,8 @@ export default function Home() {
 
           <a
             href="http://localhost:3000/shop"
+            target="_blank"
+            rel="noreferrer"
             className={styles.card}
           >
             <h2>Shop &rarr;</h2>

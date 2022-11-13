@@ -1,12 +1,43 @@
 import react from "react";
-import styled from 'styled-components';
+import Head from "next/head";
+import styled from "styled-components";
+import { getAllProducts } from "../../api";
+import Products from "../../components/Products";
+import Navbar from "../../components/Navbar";
 
-const Tndjf = styled.h1``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
-function Shop() {
+const Header = styled.p`
+  font-size: 3rem;
+`;
+
+export default function Shop({ products }) {
   return (
-    <Tndjf>asf</Tndjf>
+    <>
+      <Head>
+        <title>Acrowd - Shop</title>
+        <meta name="description" content="Acrowd shop" />
+      </Head>
+      <Container>
+        <Header>Shop</Header>
+        <Navbar />
+        <Products products={products} />
+      </Container>
+    </>
   );
 }
 
-export default Shop;
+export async function getServerSideProps(context) {
+  const data = await getAllProducts();
+
+  return {
+    props: {
+      products: data,
+    },
+  };
+}
