@@ -1,7 +1,8 @@
+import { useRouter } from "next/router";
+import React from "react";
 import styled from "styled-components";
-import BackBtn from "../BackBtn";
 import Products from "../Products";
-import NavbarForCategories from "./NavbarForCategories";
+import BackBtn from "../BackBtn";
 
 const Container = styled.div`
   display: flex;
@@ -17,18 +18,18 @@ const Header = styled.p`
   text-transform: capitalize;
 `;
 
-function CategoryProducts({ categoryName, products, categories }) {
+const ProductCategory = ({ products }) => {
+  const router = useRouter();
   return (
     <Container>
       <BackBtn />
-      <Header>{categoryName}</Header>
-      <NavbarForCategories
-        categories={categories}
-        url={`/shop/${categoryName}`}
-      />
+      <Header>
+        {router.asPath.split("/")[2]} / 
+        {router.query.productCategory}
+      </Header>
       <Products products={products} />
     </Container>
   );
-}
+};
 
-export default CategoryProducts;
+export default ProductCategory;

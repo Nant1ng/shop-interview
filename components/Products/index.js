@@ -1,7 +1,7 @@
 import react from "react";
 import styled from "styled-components";
 
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 
 const Container = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ function Products({ products }) {
     <Container>
       {products.map((product) => {
         return (
-          <Product
+          <ProductCard
             key={product?.id}
             name={product?.name}
             price={product?.price}
