@@ -32,7 +32,7 @@ export default function Shop({ products }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const data = await getAllProducts();
 
   return {

@@ -40,3 +40,21 @@ export const getProductsCategory = async (categoryId) => {
 
   return data;
 };
+
+export const getProductSlug = async (slug) => {
+  const allProducts = await getAllProducts();
+  const productSlug = allProducts.find((product) => product.slug === slug);
+
+  return productSlug;
+};
+
+export const getRelatedProducts = async (ids) => {
+  const allProducts = await getAllProducts();
+  const relatedProducts = ids.map((id) => {
+    const products = allProducts.find((product) => product.id === id);
+
+    return products;
+  });
+
+  return relatedProducts;
+};

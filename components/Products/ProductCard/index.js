@@ -7,6 +7,7 @@ const Card = styled.div`
   width: 17.5rem;
   height: 22.625rem;
   padding: 1.25rem;
+  cursor: pointer;
 `;
 
 const Title = styled.h1`
