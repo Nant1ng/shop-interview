@@ -5,8 +5,8 @@ import styled from "styled-components";
 const Button = styled.div`
   width: 4rem;
   position: absolute;
-  left: 10%;
-  top: 3.563rem;
+  left: 5%;
+  top: 2rem;
   cursor: pointer;
 `;
 
