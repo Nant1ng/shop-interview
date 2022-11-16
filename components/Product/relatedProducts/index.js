@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import ProductCard from "../../Products/ProductCard";
 import {
-  MOBILE_BP,
   TABLET_BP,
   LAPTOP_BP,
   DESKTOP_BP,
@@ -11,8 +10,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10rem;
-  ${LAPTOP_BP} {
+  margin-top: 8rem;
+  ${DESKTOP_BP} {
     align-items: flex-start;
   }
 `;
