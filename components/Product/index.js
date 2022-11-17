@@ -1,11 +1,11 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import BackBtn from "../BackBtn";
 import RelatedProducts from "./RelatedProducts";
-import { TABLET_BP } from "../../utils/consts";
-import { useState } from "react";
+import { TABLET_BP, DESKTOP_BP } from "../../utils/consts";
 
 const Container = styled.div`
   display: flex;
@@ -16,23 +16,44 @@ const Container = styled.div`
   margin-top: 6rem;
 `;
 
-const Header = styled.p`
-  font-size: 2rem;
-  text-transform: capitalize;
-  ${TABLET_BP} {
-    font-size: 3rem;
+const ProductContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  ${DESKTOP_BP} {
+    flex-direction: row;
+    padding: 0 1rem;
   }
 `;
 
-const Card = styled.div`
-  width: 17.5rem;
-  height: 22.625rem;
-  padding: 1.25rem;
-  margin-bottom: 2rem;
+const ImgContainer = styled.div`
+  width: 18.25rem;
+  ${TABLET_BP} {
+    width: 36.25rem;
+    height: 36.25rem;
+  }
+`;
+
+const ProductInfo = styled.div`
+  width: 15rem;
+  ${TABLET_BP} {
+    width: 30rem;
+  }
+  ${DESKTOP_BP} {
+    padding-left: 7.5rem;
+  }
+`;
+
+const Header = styled.p`
+  font-size: 1rem;
+  text-transform: capitalize;
 `;
 
 const Title = styled.h1`
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const PriceContainer = styled.div`
@@ -55,14 +76,18 @@ const CrossOutPrice = styled.p`
   margin: 0;
 `;
 
-const Description = styled.p``;
+const Description = styled.p`
+  font-size: 1rem;
+  color: #414141;
+`;
 
 const Cart = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 2.25rem;
 `;
 
-const CartAmountToggle = styled.div`
+const CartQuantityToggle = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-around;
@@ -71,13 +96,13 @@ const CartAmountToggle = styled.div`
   height: 3.063rem;
 `;
 
-const AmountBtn = styled.div`
+const QuantityBtn = styled.div`
   font-size: 2rem;
   cursor: pointer;
   height: 100%;
 `;
 
-const AmountValue = styled.div`
+const QuantityValue = styled.div`
   font-size: 1.5rem;
 `;
 
@@ -97,52 +122,56 @@ function Product({ product, relatedProducts }) {
   const { images, name, sale_price, regular_price, price, short_description } =
     product;
   const router = useRouter();
-  const [amount, setAmount] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
   const setDecrease = () => {
-    amount > 1 ? setAmount(amount - 1) : setAmount(1);
+    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
   };
 
   const setIncrease = () => {
-    setAmount(amount + 1);
+    setQuantity(quantity + 1);
   };
-
+  console.log(11, product)
   return (
     <>
       <BackBtn />
       <Container>
-        <Header>
-          {router.asPath.split("/")[1]} /{router.asPath.split("/")[2]} /{" "}
-          {router.asPath.split("/")[3]}
-        </Header>
-        <Card>
-          <Image
-            src={images[0].src}
-            layout="responsive"
-            objectFit="cover"
-            alt={name}
-            width={280}
-            height={274}
-          />
-          <Title>{name}</Title>
-          <PriceContainer>
-            {sale_price && <CrossOutPrice>${regular_price}</CrossOutPrice>}
-            <Price>${price}</Price>
-          </PriceContainer>
-          <Description>
-            {short_description.replace(/<\/?[^>]+(>|$)/g, "")}
-          </Description>
-          <Cart>
-            <CartAmountToggle>
-              <AmountBtn onClick={() => setDecrease()}> - </AmountBtn>
-              <AmountValue>{amount}</AmountValue>
-              <AmountBtn onClick={() => setIncrease()}> + </AmountBtn>
-            </CartAmountToggle>
-            <Link href="/cart">
-              <CartBtn>Add to Cart</CartBtn>
-            </Link>
-          </Cart>
-        </Card>
+        <ProductContainer>
+          <ImgContainer>
+            <Image
+              src={images[0].src}
+              layout="responsive"
+              objectFit="cover"
+              alt={name}
+              width={580}
+              height={580}
+            />
+          </ImgContainer>
+          <ProductInfo>
+            <Header>
+              {router.asPath.split("/")[1]} /{router.asPath.split("/")[2]} /{" "}
+              {router.asPath.split("/")[3]}
+            </Header>
+            <Title>{name}</Title>
+            <PriceContainer>
+              {sale_price && <CrossOutPrice>${regular_price}</CrossOutPrice>}
+              <Price>${price}</Price>
+            </PriceContainer>
+            <Description>
+              {short_description.replace(/<\/?[^>]+(>|$)/g, "")}
+            </Description>
+            <Cart>
+              <CartQuantityToggle>
+                <QuantityBtn onClick={() => setDecrease()}> - </QuantityBtn>
+                <QuantityValue>{quantity}</QuantityValue>
+                <QuantityBtn onClick={() => setIncrease()}> + </QuantityBtn>
+              </CartQuantityToggle>
+              <Link href="/cart">
+                <CartBtn>Add to Cart</CartBtn>
+              </Link>
+            </Cart>
+          </ProductInfo>
+        </ProductContainer>
         <RelatedProducts products={relatedProducts} />
       </Container>
     </>

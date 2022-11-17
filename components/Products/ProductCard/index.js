@@ -12,6 +12,7 @@ const Card = styled.div`
 
 const Title = styled.h1`
   font-size: 1rem;
+  font-weight: bold;
 `;
 
 const PriceContainer = styled.div`
