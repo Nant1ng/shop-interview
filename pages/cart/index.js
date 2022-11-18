@@ -1,15 +1,16 @@
-import react from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ProductRow from "../../components/ProductRow";
+import BackBtn from "../../components/BackBtn";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 7.063rem;
 `;
 
 const ContentContainer = styled.div`
@@ -67,13 +68,14 @@ const CheckoutBtn = styled.div`
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart.products);
-  console.log(1111, cart);
+
   return (
     <>
       <Head>
         <title>Acrowd - Cart</title>
         <meta name="description" content="Acrowd Cart" />
       </Head>
+      <BackBtn />
       <Container>
         <ContentContainer>
           <Header>Cart</Header>

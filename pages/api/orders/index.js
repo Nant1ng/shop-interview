@@ -1,0 +1,64 @@
+const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
+
+const api = new WooCommerceRestApi({
+  url: process.env.WP_BASE_URL,
+  consumerKey: process.env.WC_CONSUMER_KEY,
+  consumerSecret: process.env.WC_CONSUMER_SECRET,
+});
+
+function handler(req, res) {
+  if (req.method === "POST") {
+    const reqData = req.body;
+    const { email, firstName, lastName, cart } = JSON.parse(reqData);
+
+    const productsInCart = cart.map((product) => ({
+      id: product.id,
+      quantity: product.quantity,
+    }));
+    const data = {
+      payment_method: "bacs",
+      payment_method_title: "Direct Bank Transfer",
+      set_paid: true,
+      billing: {
+        first_name: firstName,
+        last_name: lastName,
+        address_1: "969 Market",
+        address_2: "",
+        city: "San Francisco",
+        state: "CA",
+        postcode: "94103",
+        country: "US",
+        email: email,
+        phone: "(555) 555-5555",
+      },
+      shipping: {
+        first_name: firstName,
+        last_name: lastName,
+        address_1: "969 Market",
+        address_2: "",
+        city: "San Francisco",
+        state: "CA",
+        postcode: "94103",
+        country: "US",
+      },
+      line_items: productsInCart,
+      shipping_lines: [
+        {
+          method_id: "flat_rate",
+          method_title: "Flat Rate",
+          total: "10.00",
+        },
+      ],
+    };
+
+    api
+      .post("orders", data)
+      .then((response) => {
+        res.status(200).json(response.data);
+      })
+      .catch((error) => {
+        res.status(400).json(error.response.data);
+      });
+  }
+}
+export default handler;

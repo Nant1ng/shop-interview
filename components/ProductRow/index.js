@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../shop/cart";
 import styled from "styled-components";
@@ -6,9 +6,16 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-bottom: 1.938rem;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-evenly;
+  width: 100%;
 `;
 
 const LeftSide = styled.div`
@@ -18,7 +25,7 @@ const LeftSide = styled.div`
   align-items: center;
 `;
 
-const Imgtest = styled.div`
+const ImgContainer = styled.div`
   width: 7.563rem;
   height: 7.375rem;
   background-color: black;
@@ -26,7 +33,8 @@ const Imgtest = styled.div`
 
 const ProductName = styled.p`
   font-weight: bold;
-  margin: 0 3rem;
+  width: 14.938rem;
+  margin: 0 1rem;
 `;
 
 const Price = styled.p``;
@@ -57,48 +65,54 @@ const CloseBtn = styled.div`
 `;
 
 function ProductRow({ products }) {
-  const { id, name, price, image, quantity } = products;
-  const [quantitys, setQuantity] = useState(quantity);
+  const { id, name, price, image, quantity, totalPrice } = products;
   const dispatch = useDispatch();
 
   const setDecrease = () => {
-    quantitys > 1 ? setQuantity(quantitys - 1) : setQuantity(1);
+    dispatch(cartActions.removeProduct({ id: id }));
   };
 
   const setIncrease = () => {
-    setQuantity(quantitys + 1);
+    dispatch(cartActions.addProduct({ id: id }));
   };
 
-  console.log(111, quantitys * price);
-  console.log("hej");
   return (
     <Container>
-      <LeftSide>
-        <Imgtest />
-        <ProductName>{name}</ProductName>
-      </LeftSide>
-      <Price>${price}</Price>
-      <QuantityToggle>
-        <QuantityBtn onClick={() => setDecrease()}> - </QuantityBtn>
-        <QuantityValue>{quantitys}</QuantityValue>
-        <QuantityBtn onClick={() => setIncrease()}> + </QuantityBtn>
-      </QuantityToggle>
-      <TotalPrice>${price * quantitys}</TotalPrice>
-      <CloseBtn
-        onClick={() =>
-          dispatch(cartActions.deleteItem({ id: id }))
-        }
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <ContentContainer>
+        <LeftSide>
+          <ImgContainer>
+            <Image
+              src={image}
+              layout="responsive"
+              objectFit="cover"
+              alt={name}
+              width={121}
+              height={118}
+            />
+          </ImgContainer>
+          <ProductName>{name}</ProductName>
+        </LeftSide>
+        <Price>${price}</Price>
+        <QuantityToggle>
+          <QuantityBtn onClick={() => setDecrease()}> - </QuantityBtn>
+          <QuantityValue>{quantity}</QuantityValue>
+          <QuantityBtn onClick={() => setIncrease()}> + </QuantityBtn>
+        </QuantityToggle>
+        <TotalPrice>${totalPrice}</TotalPrice>
+        <CloseBtn
+          onClick={() => dispatch(cartActions.deleteProduct({ id: id }))}
         >
-          <path d="M1 1L15 15M1 15L15 1" stroke="black" />
-        </svg>
-      </CloseBtn>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M1 1L15 15M1 15L15 1" stroke="black" />
+          </svg>
+        </CloseBtn>
+      </ContentContainer>
     </Container>
   );
 }

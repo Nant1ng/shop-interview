@@ -6,6 +6,7 @@ import { TABLET_BP, DESKTOP_BP } from "../../utils/consts";
 import BackBtn from "../BackBtn";
 import RelatedProducts from "./RelatedProducts";
 import AddToCart from "../AddToCart";
+import CartBtn from "../CartBtn";
 
 const Container = styled.div`
   display: flex;
@@ -119,10 +120,11 @@ function Product({ product, relatedProducts }) {
   const setIncrease = () => {
     setQuantity(quantity + 1);
   };
-  console.log(11, product);
+
   return (
     <>
       <BackBtn />
+      <CartBtn />
       <Container>
         <ProductContainer>
           <ImgContainer>

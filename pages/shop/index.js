@@ -1,4 +1,3 @@
-import react from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import { getAllProducts } from "../../api";
@@ -21,7 +20,7 @@ export default function Shop({ products }) {
     <>
       <Head>
         <title>Acrowd - Shop</title>
-        <meta name="description" content="Acrowd shop" />
+        <meta name="description" content="Acrowd Shop" />
       </Head>
       <Container>
         <Header>Shop</Header>

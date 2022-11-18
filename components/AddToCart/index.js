@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../shop/cart";
-import Link from "next/link";
 
 const CartBtn = styled.div`
   display: flex;
@@ -27,14 +26,11 @@ const AddToCart = ({ product, quantity }) => {
       price: product.price,
     };
 
-    dispatch(cartActions.addItem(data));
+    dispatch(cartActions.addProduct(data));
   };
   return (
     <>
       <CartBtn onClick={() => addToCart()}>Add to Cart</CartBtn>
-      <Link href="/cart">
-        <h1>qwer</h1>
-      </Link>
     </>
   );
 };
