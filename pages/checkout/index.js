@@ -6,6 +6,7 @@ import { cartActions } from "../../shop/cart";
 import styled from "styled-components";
 import ProductList from "../../components/ProductList";
 import BackBtn from "../../components/BackBtn";
+import { LAPTOP_BP } from "../../utils/consts";
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +17,10 @@ const Container = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  width: 40%;
+  width: 80%;
+  ${LAPTOP_BP} {
+    width: 40%;
+  }
 `;
 
 const Header = styled.p`
