@@ -1,6 +1,7 @@
 import react from "react";
 import Link from "next/link";
 import Head from "next/head";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ProductRow from "../../components/ProductRow";
 
@@ -65,6 +66,8 @@ const CheckoutBtn = styled.div`
 `;
 
 export default function Cart() {
+  const cart = useSelector((state) => state.cart.products);
+  console.log(1111, cart);
   return (
     <>
       <Head>
@@ -82,7 +85,9 @@ export default function Cart() {
               <Title>Total</Title>
             </Row>
           </TitleRow>
-          <ProductRow />
+          {cart.map((product) => {
+            return <ProductRow key={product.id} products={product} />;
+          })}
           <Divider />
           <BtnContainer>
             <Link href="/checkout">

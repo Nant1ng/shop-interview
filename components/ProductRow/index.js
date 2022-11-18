@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../shop/cart";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -54,31 +56,39 @@ const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-function ProductRow() {
-  const [quantity, setQuantity] = useState(1);
+function ProductRow({ products }) {
+  const { id, name, price, image, quantity } = products;
+  const [quantitys, setQuantity] = useState(quantity);
+  const dispatch = useDispatch();
 
   const setDecrease = () => {
-    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
+    quantitys > 1 ? setQuantity(quantitys - 1) : setQuantity(1);
   };
 
   const setIncrease = () => {
-    setQuantity(quantity + 1);
+    setQuantity(quantitys + 1);
   };
 
+  console.log(111, quantitys * price);
+  console.log("hej");
   return (
     <Container>
       <LeftSide>
         <Imgtest />
-        <ProductName>QWERQWER</ProductName>
+        <ProductName>{name}</ProductName>
       </LeftSide>
-      <Price>$27.99</Price>
+      <Price>${price}</Price>
       <QuantityToggle>
         <QuantityBtn onClick={() => setDecrease()}> - </QuantityBtn>
-        <QuantityValue>{quantity}</QuantityValue>
+        <QuantityValue>{quantitys}</QuantityValue>
         <QuantityBtn onClick={() => setIncrease()}> + </QuantityBtn>
       </QuantityToggle>
-      <TotalPrice>$30.00</TotalPrice>
-      <CloseBtn>
+      <TotalPrice>${price * quantitys}</TotalPrice>
+      <CloseBtn
+        onClick={() =>
+          dispatch(cartActions.deleteItem({ id: id }))
+        }
+      >
         <svg
           width="16"
           height="16"

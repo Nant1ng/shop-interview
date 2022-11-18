@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { TABLET_BP, DESKTOP_BP } from "../../utils/consts";
 import BackBtn from "../BackBtn";
 import RelatedProducts from "./RelatedProducts";
-import { TABLET_BP, DESKTOP_BP } from "../../utils/consts";
+import AddToCart from "../AddToCart";
 
 const Container = styled.div`
   display: flex;
@@ -106,18 +106,6 @@ const QuantityValue = styled.div`
   font-size: 1.5rem;
 `;
 
-const CartBtn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 7.938rem;
-  height: 3.063rem;
-  background-color: #000000;
-  color: #ffffff;
-  text-transform: uppercase;
-  cursor: pointer;
-`;
-
 function Product({ product, relatedProducts }) {
   const { images, name, sale_price, regular_price, price, short_description } =
     product;
@@ -131,7 +119,7 @@ function Product({ product, relatedProducts }) {
   const setIncrease = () => {
     setQuantity(quantity + 1);
   };
-  console.log(11, product)
+  console.log(11, product);
   return (
     <>
       <BackBtn />
@@ -166,9 +154,7 @@ function Product({ product, relatedProducts }) {
                 <QuantityValue>{quantity}</QuantityValue>
                 <QuantityBtn onClick={() => setIncrease()}> + </QuantityBtn>
               </CartQuantityToggle>
-              <Link href="/cart">
-                <CartBtn>Add to Cart</CartBtn>
-              </Link>
+              <AddToCart product={product} quantity={quantity} />
             </Cart>
           </ProductInfo>
         </ProductContainer>
