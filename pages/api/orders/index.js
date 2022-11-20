@@ -12,9 +12,10 @@ function handler(req, res) {
     const { email, firstName, lastName, cart } = JSON.parse(reqData);
 
     const productsInCart = cart.map((product) => ({
-      id: product.id,
+      product_id: product.id,
       quantity: product.quantity,
     }));
+
     const data = {
       payment_method: "bacs",
       payment_method_title: "Direct Bank Transfer",
