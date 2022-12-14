@@ -2,8 +2,16 @@ import Link from "next/link";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import ProductRow from "../../components/ProductRow";
 import BackBtn from "../../components/BackBtn";
+import CartTable from "../../components/CartTable";
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const Container = styled.div`
   display: flex;
@@ -20,24 +28,6 @@ const ContentContainer = styled.div`
 const Header = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
-`;
-
-const TitleRow = styled.div`
-  width: 100%;
-  height: 3.563rem;
-  background-color: #f6f6f6;
-  margin-top: 4rem;
-  margin-bottom: 2.375rem;
-  display: flex;
-  justify-content: space-around;
-`;
-
-const Title = styled.p``;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 50%;
 `;
 
 const Divider = styled.div`
@@ -79,17 +69,44 @@ export default function Cart() {
       <Container>
         <ContentContainer>
           <Header>Cart</Header>
-          <TitleRow>
-            <Title>Product</Title>
-            <Row>
-              <Title>Price</Title>
-              <Title>Quantity</Title>
-              <Title>Total</Title>
-            </Row>
-          </TitleRow>
-          {cart.map((product) => {
-            return <ProductRow key={product.id} products={product} />;
-          })}
+          <TableContainer
+            sx={{ width: "100%", margin: "auto" }}
+            component={Paper}
+          >
+            <Table
+              sx={{ width: "100%", margin: "auto", border: 0 }}
+              aria-label="simple table"
+            >
+              <TableHead sx={{ background: "#f6f6f6" }}>
+                <TableRow>
+                  <TableCell sx={{ color: "#000" }}></TableCell>
+                  <TableCell sx={{ color: "#000" }} align="left">
+                    Product
+                  </TableCell>
+                  <TableCell sx={{ color: "#000" }} align="left">
+                    Price
+                  </TableCell>
+                  <TableCell sx={{ color: "#000" }} align="left">
+                    Quantity
+                  </TableCell>
+                  <TableCell sx={{ color: "#000" }} align="left">
+                    Total
+                  </TableCell>
+                  <TableCell sx={{ color: "#000" }} align="left"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cart.map((productInCart) => {
+                  return (
+                    <CartTable
+                      key={productInCart.id}
+                      products={productInCart}
+                    />
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
           <Divider />
           <BtnContainer>
             <Link href="/checkout">

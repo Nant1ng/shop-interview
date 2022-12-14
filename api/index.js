@@ -1,7 +1,7 @@
 let allProducts = [];
 
 export const getAllProducts = async () => {
-  const response = await fetch(`http://localhost:3000/api/products`);
+  const response = await fetch(`${process.env.PUBLIC_SITE_URL}/api/products`);
   const data = await response.json();
 
   allProducts = [...data];
@@ -13,10 +13,10 @@ export const getAllCategories = async (parentId = null) => {
   let response;
   if (parentId || parentId === 0) {
     response = await fetch(
-      `http://localhost:3000/api/categories?parent=${parentId}`
+      `${process.env.PUBLIC_SITE_URL}/api/categories?parent=${parentId}`
     );
   } else {
-    response = await fetch(`http://localhost:3000/api/categories`);
+    response = await fetch(`${process.env.PUBLIC_SITE_URL}/api/categories`);
   }
   const data = await response.json();
 
@@ -25,7 +25,7 @@ export const getAllCategories = async (parentId = null) => {
 
 export const getCategorySlug = async (slug) => {
   const response = await fetch(
-    `http://localhost:3000/api/categories?slug=${slug}`
+    `${process.env.PUBLIC_SITE_URL}/api/categories?slug=${slug}`
   );
   const data = await response.json();
   return data;
@@ -33,7 +33,7 @@ export const getCategorySlug = async (slug) => {
 
 export const getProductsCategory = async (categoryId) => {
   const response = await fetch(
-    `http://localhost:3000/api/products?category=${categoryId}`
+    `${process.env.PUBLIC_SITE_URL}/api/products?category=${categoryId}`
   );
 
   const data = response.json();
