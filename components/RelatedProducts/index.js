@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import ProductCard from "../../Products/ProductCard";
+import ProductCard from "../Products/ProductCard";
 import {
   TABLET_BP,
   LAPTOP_BP,
   DESKTOP_BP,
-} from "../../../utils/consts";
+} from "../../utils/consts";
 
 const Container = styled.div`
   display: flex;
